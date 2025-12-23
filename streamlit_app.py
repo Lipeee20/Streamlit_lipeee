@@ -1,6 +1,7 @@
 import streamlit as st 
 import pandas as pd 
 import numpy as np
+import matplotlib.pyplot as plt
 import datetime
 
 st.write(
@@ -111,4 +112,69 @@ values = st.slider(
     label='Select a range of values',
     min_value=0, max_value=100, value=(0, 100))
 st.write('Values:', values)
+
+# =========================
+# TITLE
+# =========================
+st.title("📊 Dashboard Contoh Streamlit")
+
+# =========================
+# HEADER & SUBHEADER
+# =========================
+st.header("Informasi Umum")
+st.subheader("Pengenalan Aplikasi")
+
+# =========================
+# TEXT / PARAGRAPH
+# =========================
+st.text(
+    "Aplikasi ini dibuat menggunakan Streamlit.\n"
+    "Contoh ini menampilkan berbagai komponen dasar\n"
+    "seperti teks, kode program, tabel, dan grafik."
+)
+
+# =========================
+# CAPTION
+# =========================
+st.caption("Contoh caption: Dashboard sederhana untuk pembelajaran Streamlit")
+
+# =========================
+# CODE (Potongan Kode)
+# =========================
+st.subheader("Contoh Potongan Kode Python")
+st.code("""
+import streamlit as st
+
+st.title("Hello Streamlit")
+st.write("Ini adalah contoh aplikasi Streamlit")
+""", language="python")
+
+# =========================
+# DATA DISPLAY (TABEL)
+# =========================
+st.header("Data Mahasiswa")
+
+data = {
+    "Nama": ["Andi", "Budi", "Citra", "Dewi"],
+    "Nilai": [85, 90, 78, 88],
+    "Status": ["Lulus", "Lulus", "Lulus", "Lulus"]
+}
+
+df = pd.DataFrame(data)
+
+st.subheader("Tabel Data")
+st.dataframe(df)
+
+# =========================
+# DATA DISPLAY (CHART)
+# =========================
+st.header("Grafik Nilai Mahasiswa")
+
+fig, ax = plt.subplots()
+ax.bar(df["Nama"], df["Nilai"])
+ax.set_xlabel("Nama")
+ax.set_ylabel("Nilai")
+ax.set_title("Grafik Nilai Mahasiswa")
+
+st.pyplot(fig)
 
