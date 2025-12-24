@@ -114,7 +114,7 @@ if menu == "Dashboard":
     col2.metric("Nilai Min", df["Nilai"].min())
     col3.metric("Rata-rata", round(df["Nilai"].mean(), 2))
 
-    fig = px.bar(df, x="Nama", y="Nilai", text="Nilai")
+    fig = st.bar(df, x="Nama", y="Nilai", text="Nilai")
     st.bar_chart(df.set_index("Nama")["Nilai"])
 
 
