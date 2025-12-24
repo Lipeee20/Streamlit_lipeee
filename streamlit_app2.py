@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import plotly.express as px
 import time
 import random
 
@@ -116,7 +115,8 @@ if menu == "Dashboard":
     col3.metric("Rata-rata", round(df["Nilai"].mean(), 2))
 
     fig = px.bar(df, x="Nama", y="Nilai", text="Nilai")
-    st.plotly_chart(fig, use_container_width=True)
+    st.bar_chart(df.set_index("Nama")["Nilai"])
+
 
 # =========================
 # REALTIME SIMULATION
