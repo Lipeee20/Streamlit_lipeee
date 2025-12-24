@@ -51,7 +51,15 @@ st.markdown(
 # =========================
 # SIDEBAR
 # =========================
-st.sidebar.image("logo_kampus.png", width=150)
+import os
+
+logo_path = "logo_kampus.png"
+
+if os.path.exists(logo_path):
+    st.sidebar.image(logo_path, width=150)
+else:
+    st.sidebar.warning("Logo kampus tidak ditemukan")
+
 st.sidebar.markdown(f"### 🎓 {NAMA_KAMPUS}")
 st.sidebar.caption("Dashboard Akademik Mahasiswa")
 st.sidebar.divider()
