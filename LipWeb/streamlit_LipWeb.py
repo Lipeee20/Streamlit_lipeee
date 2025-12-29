@@ -23,7 +23,7 @@ st_autorefresh(interval=1000, key="clock")  # 1 detik
 # =========================
 # SIDEBAR - LOGO
 # =========================
-logo_path = "logo_kampus.png"
+logo_path = "LipWeb/logo_kampus.png"
 if os.path.exists(logo_path):
     st.sidebar.image(logo_path, width=150)
 else:
