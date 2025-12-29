@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import time
+from datetime import datetime
+
 
 # =========================
 # KONFIGURASI HALAMAN
@@ -34,6 +37,18 @@ st.sidebar.write(f"""
 **Prodi** : {"Teknologi Rekayasa Pembangkit Energi"}  
 **Kampus** : {"Politeknik Negeri Batam"}
 """)
+
+st.sidebar.markdown("---")
+st.sidebar.subheader("⏰ Jam Online")
+
+clock_placeholder = st.sidebar.empty()
+
+while True:
+    now = datetime.now().strftime("%H:%M:%S")
+    clock_placeholder.markdown(f"""
+    <h2 style="text-align:center;">{now}</h2>
+    """, unsafe_allow_html=True)
+    time.sleep(1)
 
 # =========================
 # TITLE
