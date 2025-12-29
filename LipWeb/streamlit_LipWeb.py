@@ -23,7 +23,11 @@ st_autorefresh(interval=1000, key="clock")  # 1 detik
 # =========================
 # SIDEBAR - LOGO
 # =========================
-st.sidebar.image("logo_kampus.png", width=150)
+logo_path = "assets/logo_kampus.png"
+if os.path.exists(logo_path):
+    st.sidebar.image(logo_path, width=150)
+else:
+    st.sidebar.warning("Logo kampus tidak ditemukan")
 
 st.sidebar.title("🎓 LipWeb")
 st.sidebar.caption("Dashboard Akademik Interaktif")
