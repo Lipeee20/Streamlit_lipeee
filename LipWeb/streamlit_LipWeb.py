@@ -1,9 +1,10 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import time
 from datetime import datetime
-
+import pytz
+import os
+from streamlit_autorefresh import st_autorefresh
 
 # =========================
 # KONFIGURASI HALAMAN
@@ -15,14 +16,24 @@ st.set_page_config(
 )
 
 # =========================
-# SIDEBAR
+# AUTO REFRESH (JAM)
 # =========================
-st.sidebar.image("LipWeb/logo_kampus.png", width=150)
+st_autorefresh(interval=1000, key="clock")  # 1 detik
+
+# =========================
+# SIDEBAR - LOGO
+# =========================
+logo_path = "logo_kampus.png"
+if os.path.exists(logo_path):
+    st.sidebar.image(logo_path, width=150)
+else:
+    st.sidebar.warning("Logo kampus tidak ditemukan")
+
 st.sidebar.title("🎓 LipWeb")
 st.sidebar.caption("Dashboard Akademik Interaktif")
 
 # =========================
-# DATA TENTANG SAYA (OTOMATIS)
+# TENTANG SAYA
 # =========================
 NAMA = "Philip Day Hutasoit"
 NIM = "4232401027"
@@ -31,24 +42,23 @@ KAMPUS = "Politeknik Negeri Batam"
 
 st.sidebar.markdown("---")
 st.sidebar.subheader("👤 Tentang Saya")
-st.sidebar.write(f"""
-**Nama** : {"Philip Day Hutasoit"}  
-**NIM** : {"4232401027"}  
-**Prodi** : {"Teknologi Rekayasa Pembangkit Energi"}  
-**Kampus** : {"Politeknik Negeri Batam"}
+st.sidebar.markdown(f"""
+**Nama** : {NAMA}  
+**NIM** : {NIM}  
+**Prodi** : {PRODI}  
+**Kampus** : {KAMPUS}
 """)
 
+# =========================
+# JAM ONLINE (WIB)
+# =========================
 st.sidebar.markdown("---")
 st.sidebar.subheader("⏰ Jam Online")
 
-clock_placeholder = st.sidebar.empty()
+wib = pytz.timezone("Asia/Jakarta")
+now = datetime.now(wib).strftime("%H:%M:%S")
 
-while True:
-    now = datetime.now().strftime("%H:%M:%S")
-    clock_placeholder.markdown(f"""
-    <h2 style="text-align:center;">{now}</h2>
-    """, unsafe_allow_html=True)
-    time.sleep(1)
+st.sidebar.write(f"🕒 {now} WIB")
 
 # =========================
 # TITLE
@@ -56,7 +66,7 @@ while True:
 st.title("📊 LipWeb – Dashboard Akademik Modern")
 
 # =========================
-# PARAGRAF TEXT
+# TEXT PARAGRAF
 # =========================
 st.text(
     "LipWeb adalah sebuah web dashboard interaktif berbasis Streamlit\n"
@@ -105,11 +115,10 @@ data = {
 }
 
 df = pd.DataFrame(data)
-
 st.dataframe(df, use_container_width=True)
 
 # =========================
-# GRAFIK 1 – BAR
+# GRAFIK BAR
 # =========================
 st.subheader("📊 Grafik Nilai Mahasiswa")
 fig_bar = px.bar(
@@ -122,7 +131,7 @@ fig_bar = px.bar(
 st.plotly_chart(fig_bar, use_container_width=True)
 
 # =========================
-# GRAFIK 2 – PIE
+# GRAFIK PIE
 # =========================
 st.subheader("🥧 Komposisi Mata Kuliah")
 fig_pie = px.pie(
@@ -133,7 +142,7 @@ fig_pie = px.pie(
 st.plotly_chart(fig_pie, use_container_width=True)
 
 # =========================
-# GRAFIK 3 – BOX
+# GRAFIK BOX
 # =========================
 st.subheader("📈 Sebaran Nilai")
 fig_box = px.box(
